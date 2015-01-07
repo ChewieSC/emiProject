@@ -1,3 +1,41 @@
+/**
+	* unsere "Datenbank":
+		25.9. - 10.10.					Pichmännelfest		veranst_0001	x
+		16.10. - 29.01.2015, jeweils Do: Populärkultur		veranst_0002
+		27.11. - 24.12.					Striezelmarkt		veranst_0003	x
+		5.12.: 							Nussknacker			veranst_0004	x
+		07.12.2014 / 21.12.2014:		Sonntag				veranst_0005	x
+		31.12.							Silvester			veranst_0006	x
+		14.1.2014						Workshop			veranst_0007	x
+	*/
+var veranstKalender = TAFFY([	{day:5, month:12, year: 2014, veranstaltung:4},
+								{day:14, month:1, year: 2015, veranstaltung:7},
+								{day:31, month:12, year: 2014, veranstaltung:6},
+								{day:7, month:12, year: 2014, veranstaltung:5},
+								{day:21, month:12, year: 2014, veranstaltung:5}
+							]);
+//DB-Befuellung
+//	fillRecords(startDay, endDay, month, year, veranstNr, regel)
+//September 2014
+	fillRecords(25, 30, 9, 2014, 1, 1);
+//Oktober
+	fillRecords(1, 10, 10, 2014, 1, 1);
+	fillRecords(16, 30, 10, 2014, 2, 7);
+//November
+	fillRecords(6, 30, 11, 2014, 2, 7);
+	fillRecords(27, 30, 11, 2014, 3, 1);
+//Dezember
+	fillRecords(4, 18, 12, 2014, 2, 7);
+	fillRecords(1, 24, 12, 2014, 3, 1);
+//Januar 2015
+	fillRecords(8, 30, 1, 2015, 2, 7);
+//----------------------------------------------------
+//GET: veranstKalender({day:5,month:12,year:2014}).get()
+//emptyCheck: veranstKalender({day:14,month:1,year:2015}).get().length === 0
+//siehe auch: taffydb.com/writingqueries
+
+
+//Kalender
 var d = new Date();
 var dm = d.getMonth() + 1;
 var dj = d.getYear();
@@ -6,6 +44,13 @@ if (dj < 999)
 Kalender(dm, dj);
 var kalender;
 var textFeldDatum;
+
+function fillRecords(startDay, endDay, month, year, veranstNr, regel){
+	for(var n=startDay; n<=endDay; n=n+regel){
+		veranstKalender.insert({day:n, month:month, year: year, veranstaltung:veranstNr});			
+	}
+		
+}
 
 $('#dp1').change(function(){
 	var temp = $(this).val();
@@ -85,28 +130,28 @@ function Kalender (Monat, Jahr) {
 	//Montag-Samstag
     for (var j = 0; j <= 5; j++) {
       if ((i == 0) && (j < Start)) {
-        SchreibeZelle("");	//für Tage vor 1. wenn dieser nicht Montag ist
+        SchreibeZelle("", Monat, Jahr);	//für Tage vor 1. wenn dieser nicht Montag ist
       } else {
         if (Tageszahl > Stop) {
-          SchreibeZelle("");
+          SchreibeZelle("", Monat, Jahr);
         } else {
           if ((Jahr == DiesesJahr) && (Monat == DieserMonat) && (Tageszahl == DieserTag)) {
-            SchreibeZelle(Tageszahl);
+            SchreibeZelle(Tageszahl + "a", Monat, Jahr); //a -> to get Selected Day-Class
           } else {
-            SchreibeZelle(Tageszahl);
+            SchreibeZelle(Tageszahl, Monat, Jahr);
           }
           Tageszahl++;
         }
       }
     }
     if (Tageszahl > Stop) {
-      SchreibeZelle("");	//stets Sonntag?
-	  if (Tageszahl > Stop){ break }		//myLittleHack (seems to work)
+      SchreibeZelle("",  Monat, Jahr);	//stets Sonntag?
+	  if (Tageszahl > Stop){ break; }		//myLittleHack (seems to work)
     } else {
       if ((Jahr == DiesesJahr) && (Monat == DieserMonat) && (Tageszahl == DieserTag)) {
-        SchreibeZelle(Tageszahl);
+        SchreibeZelle(Tageszahl + "a", Monat, Jahr); //a -> to get Selected Day-Class
       } else {
-        SchreibeZelle(Tageszahl);
+        SchreibeZelle(Tageszahl, Monat, Jahr);
     }
 	if(Tageszahl<=Stop && i==4)	//myLittleHack #2 (seems to work too) > wenn man keine 5. Zeile braucht
 		break;
@@ -122,6 +167,10 @@ function Kalender (Monat, Jahr) {
   	makeEmBold();
 	initiateEventsDisplay();
 	initiatePrevNextFunction();
+	
+	//initial state bei Seitenaufruf
+	$(".veranstaltung").hide();
+	displayEvents(DieserTag, DieserMonat, DiesesJahr);
 }
 
 function SchreibeKopf (Monatstitel, Monat) {
@@ -137,11 +186,32 @@ function SchreibeKopf (Monatstitel, Monat) {
   kalender += ("<\/tr>");
 }
 
-function SchreibeZelle (Inhalt) {
+function SchreibeZelle (Inhalt, Monat, Jahr) {
+	
   if(Inhalt==="")
 	kalender += ('<td>');
-  else
-	kalender += ('<td class="styleZelle" id="tag_'+ Inhalt +'">');
+  else{
+  	
+  	var anzahlVeranstaltungen = veranstKalender({day:Inhalt,month:Monat,year:Jahr}).get().length;
+  	// var anzahlVeranstaltungen = 1;
+  	var tooltip;
+  	if(anzahlVeranstaltungen === 0)
+  		tooltip = '<span>Es finden keine Veranstaltungen statt.<\/span>';
+  	else if (anzahlVeranstaltungen === 1){
+  		tooltip = '<span>Es findet ' + anzahlVeranstaltungen +' Veranstaltung statt.<\/span>';
+  	}
+  	else 
+  		tooltip = '<span>Es finden ' + anzahlVeranstaltungen +' Veranstaltungen statt.<\/span>';
+  	
+  	if( !isNaN(Inhalt) ){	// == if Inhalt is a Number
+  		kalender += ('<td class="styleZelle tooltips" id="tag_'+ Inhalt +'">' + tooltip);
+  	}
+  	else{	//selected Day
+  		Inhalt = Inhalt.slice(0, Inhalt.length-1);
+  		kalender += ('<td class="styleZelle tooltips selectedDay" id="tag_'+ Inhalt +'">' + tooltip);
+  	}
+  }
+  
   kalender += (Inhalt);
   kalender += ("<\/td>");
 }
@@ -150,86 +220,19 @@ function initiateEventsDisplay(){
 	$( ".styleZelle" ).on( "click", function() {
 		//get Date -> stattfindende Veranstaltungen finden und anzeigen
 		
-		//initial state
+		//initial state onClick
 		$(".veranstaltung").hide();
-		keineVeranstaltung = true;
+		
+		//strip out the tooltip
+		var helperString = $( this ).text();
+		var inhaltAt = helperString.indexOf(".");
 		
 		// ausgewaehlter Tag
-		var day =  parseInt( $( this ).text() ); 			
+		var day =  parseInt( helperString.substring(inhaltAt+1, helperString.length) ); 			
 		var month = getMonth();
 		var year = getYear();
 		
-		console.log(day+" "+month+" "+year);	//Beispiel: "31 12 2014"
-		
-		//check if day is empty string!
-		if(year==2014 && !isNaN(day) ){
-			switch(month) {
-				case 9:
-					if(day>=25 && day<=30){
-						$("#veranst_0001").show();
-						keineVeranstaltung = false;
-					}
-					break;
-				case 10:
-					if(day>=1 && day<=10){
-						$("#veranst_0001").show();
-						keineVeranstaltung = false;
-					}
-					if(day==16 || day==23 || day==30){
-						$("#veranst_0002").show();
-						keineVeranstaltung = false;
-					}
-					break;
-				case 11:
-					if(day==6 || day==13 || day==20 || day==27){
-						$("#veranst_0002").show();
-						keineVeranstaltung = false;
-					}
-					if(day>=27 && day <=30){
-						$("#veranst_0003").show();
-						keineVeranstaltung = false;
-					}
-					break;
-				case 12:
-					if(day==4 || day==11 || day==18){
-						$("#veranst_0002").show();
-						keineVeranstaltung = false;
-					}
-					if(day>=1 && day <=24){
-						$("#veranst_0003").show();
-						keineVeranstaltung = false;
-					}	
-					if(day==5){
-						$("#veranst_0004").show();
-						keineVeranstaltung = false;
-					}
-					if(day==7 || day==21){
-						$("#veranst_0005").show();
-						keineVeranstaltung = false;
-					}	
-					if(day==31){
-						$("#veranst_0006").show();
-						keineVeranstaltung = false;
-					}
-					break;
-				default:
-			}
-		}
-		if(year==2015 && !isNaN(day) ){	//2015
-			if(month==1){
-				if(day==8 || day==15 || day==22 || day==29){
-					$("#veranst_0002").show();
-					keineVeranstaltung = false;
-				}
-				if(day==14){
-					$("#veranst_0007").show();
-					keineVeranstaltung = false;
-				}
-			}
-		}
-		//check ob keine Veranstaltungen angzeigt werden -> dann: Info
-		if(keineVeranstaltung === true)
-			$("#keine_veranst").show();
+		displayEvents(day, month, year);
 	});
 }
 
@@ -312,4 +315,80 @@ function makeEmBold(){
 		}
 	
 	
+}
+
+function displayEvents(day, month, year){
+		var keineVeranstaltung = true;
+					
+		console.log(day+" "+month+" "+year);	//Beispiel: "31 12 2014"
+		
+		//check if day is empty string! 
+		if(year==2014 && !isNaN(day) ){
+			switch(month) {
+				case 9:
+					if(day>=25 && day<=30){
+						$("#veranst_0001").show();
+						keineVeranstaltung = false;
+					}
+					break;
+				case 10:
+					if(day>=1 && day<=10){
+						$("#veranst_0001").show();
+						keineVeranstaltung = false;
+					}
+					if(day==16 || day==23 || day==30){
+						$("#veranst_0002").show();
+						keineVeranstaltung = false;
+					}
+					break;
+				case 11:
+					if(day==6 || day==13 || day==20 || day==27){
+						$("#veranst_0002").show();
+						keineVeranstaltung = false;
+					}
+					if(day>=27 && day <=30){
+						$("#veranst_0003").show();
+						keineVeranstaltung = false;
+					}
+					break;
+				case 12:
+					if(day==4 || day==11 || day==18){
+						$("#veranst_0002").show();
+						keineVeranstaltung = false;
+					}
+					if(day>=1 && day <=24){
+						$("#veranst_0003").show();
+						keineVeranstaltung = false;
+					}	
+					if(day==5){
+						$("#veranst_0004").show();
+						keineVeranstaltung = false;
+					}
+					if(day==7 || day==21){
+						$("#veranst_0005").show();
+						keineVeranstaltung = false;
+					}	
+					if(day==31){
+						$("#veranst_0006").show();
+						keineVeranstaltung = false;
+					}
+					break;
+				default:
+			}
+		}
+		if(year==2015 && !isNaN(day) ){	//2015
+			if(month==1){
+				if(day==8 || day==15 || day==22 || day==29){
+					$("#veranst_0002").show();
+					keineVeranstaltung = false;
+				}
+				if(day==14){
+					$("#veranst_0007").show();
+					keineVeranstaltung = false;
+				}
+			}
+		}
+		//check ob keine Veranstaltungen angzeigt werden -> dann: Info
+		if(keineVeranstaltung === true)
+			$("#keine_veranst").show();
 }

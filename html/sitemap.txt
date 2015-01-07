@@ -6,13 +6,17 @@ Maedels machen das!
 > (erledigt) Bilder alle eine Groesse (CSS)
 ---
 Jungs zeigt auch mal euer Koennen!
-> auf Startseite: heutiges Datum sofort ausgewaehlt
-> Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren
+> (erledigt) auf Startseite: heutiges Datum sofort ausgewaehlt
+> (erledigt) selektierten Tag hervorheben!
+> Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren (auch wenn auf einer anderen Seite!!)
 	> der Kalender aktualisiert dann die Veranstaltungen
-> MouseOver realisieren (bei Veranstaltungen oder dem Kalender?)
-> Selektierten Tag hervorheben! (DONE: Kalendertage mit Daten hervorheben)
 > Datums-Eingabe checken (JS) -> Bootstrap-H�kchen nutzen
-> Quell-Code Dokumentation
+
+Optional:
+> bei initiateEventsDisplay() und makeEmBold() -> DB benutzen statt "case: ..."
+> bei MouseOver: ?Fade In oder Roll-In 
+> (praktisch erledigt) Quell-Code Dokumentation
+> bei mehr als einer Veranstaltung/Kategorie "row"-class aus Bootstrap benutzen (am Besten per JS)
 
 title="Tooltip"
 [Monats-/Wochenauswahl??]
@@ -33,6 +37,3 @@ w�re bei einem richtigen Projekt (optional) noch zu tun:
 > (kalendar.js neuschreiben)
 > Kalender auf "normalen" Veranstaltungsseiten als Widget an der Seite
 ---
-> einmal mehr als eine Veranstaltungen am Tag
-	//bei mehr als einer Veranstaltung/Kategorie "row"-class aus Bootstrap benutzen
-	> (ggf. auch einmal mehr als eine Veranstaltungen in selber Kategorie)
