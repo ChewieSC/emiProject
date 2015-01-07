@@ -1,0 +1,187 @@
+body {
+  padding-top: 0px; /* 50px falls man ne fixed navbar haben will */
+}
+.starter-template {
+  padding: 5px 15px;
+  text-align: center;
+}
+.starter-template ul{
+	text-align: left;
+}
+
+/* CSS für multi-level navbar */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+	/* Block-Elemente erzeugen eine neue Zeile im Textfluß und 
+	können zum vorherigen und zum nachfolgenden Element einen größeren Abstand aufweisen. 
+	Sie sind im Textfluß somit immer untereinander angeordnet. */
+    display: block;
+	/* content generiert zusammen mit ::before und ::after einfache Zeichenketten vor oder nach dem Element */
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+/* You can float an element to the left or right 
+with class pull-left or pull-right respectively. */
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+/* custom bootstrap variations */
+.navbar{
+	margin-bottom: 12px;
+}
+
+h1{
+	margin-bottom: 30px;
+}
+.img-thumbnail-small{
+	width: 140px; 
+	height: 140px;
+}
+.img-thumbnail-big{
+	height: 340px;
+}
+a .img-thumbnail:hover{
+	border: 1px solid #0066CC;
+}
+.starter-template .oneImage{
+	height: 500px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.navbar-nav > .calendar {
+    padding-top: 8px;
+	margin-left: 6px;
+    /* padding-bottom: 15px; */
+}
+
+/* Monatstabelle CSS */
+.styleTabelle{
+	width: 100%;
+}
+.styleKopf{
+	text-align: center;
+}
+.styleKopf-subheading{
+	text-align: center;
+	font-weight: normal;
+}
+tbody .styleZelle{
+	cursor: pointer;
+}
+tbody .styleZelle:hover{
+	background: none repeat scroll 0 0 #eeeeee;
+}
+
+#dp1{
+	text-align: right;
+}
+#dp-description{
+	color: #989898;
+	font-size: 10px;
+	cursor: auto;
+}
+.form-inline .form-control {
+	display: inline-block;
+	width: 130px;
+}
+.kategorie-tag{
+	color: #F35735;
+}
+.center-image{
+	display: inline;
+}
+.veranstaltung{
+	margin-bottom: 20px;
+	/* border-bottom: 0.05em solid grey; */
+}
+#kalender-prev, #kalender-next{
+	text-align: center;
+	cursor: pointer;
+}
+#kalender-prev:hover, #kalender-next:hover{
+	background: none repeat scroll 0 0 #eeeeee;
+}
+.styleguide-template{
+  padding: 5px 15px;
+  text-align: left;
+}
+.bold{	
+	font-weight: bold;
+}
+/* die naechsten 4 Regeln sind fuer den Tooltip */
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #2B72FF;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 16px;
+}
+a.tooltips span:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-top: 8px solid #2B72FF;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltips span {
+  visibility: visible;
+  opacity: 0.7;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
+}

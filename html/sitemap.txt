@@ -1,0 +1,38 @@
+TODO:
+Maedels machen das!
+> (Petra) Video bei Silvester hinzufügen und Audio bei Nussknacker
+> (Petra und Isabell) Styleguide auf Webseite (nicht in Word) machen
+> (Isabell) Team- und MockUp-Seite
+> (erledigt) Bilder alle eine Groesse (CSS)
+---
+Jungs zeigt auch mal euer Koennen!
+> auf Startseite: heutiges Datum sofort ausgewaehlt
+> Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren
+	> der Kalender aktualisiert dann die Veranstaltungen
+> MouseOver realisieren (bei Veranstaltungen oder dem Kalender?)
+> Selektierten Tag hervorheben! (DONE: Kalendertage mit Daten hervorheben)
+> Datums-Eingabe checken (JS) -> Bootstrap-H�kchen nutzen
+> Quell-Code Dokumentation
+
+title="Tooltip"
+[Monats-/Wochenauswahl??]
+> naechstes Treffen 12.01.2015: 14.50 - 16.20
+----
+Unsere Veranstaltungen (Struktur):
+	Bildung: Vortrag: Popul�rkultur
+	Kultur: Ballett: Nussknacker
+	Freizeit: Party: Sylvester
+	�ffentl. V.: Stadtfest: Oktoberfest
+	�ffentl. V., Markt: Verkaufsoffener Sonntag
+	�ffentliche V.: Weihnachtsmarkt: Striezelmarkt
+---
+
+w�re bei einem richtigen Projekt (optional) noch zu tun:
+> Veranstaltungen in eine Datenbank mit Tag(en) und Kategorie
+	> dynamischer Abruf, alles anpassen
+> (kalendar.js neuschreiben)
+> Kalender auf "normalen" Veranstaltungsseiten als Widget an der Seite
+---
+> einmal mehr als eine Veranstaltungen am Tag
+	//bei mehr als einer Veranstaltung/Kategorie "row"-class aus Bootstrap benutzen
+	> (ggf. auch einmal mehr als eine Veranstaltungen in selber Kategorie)
