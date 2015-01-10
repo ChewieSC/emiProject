@@ -43,37 +43,12 @@ if (dj < 999)
   dj += 1900;
 Kalender(dm, dj);
 var kalender;
-var textFeldDatum;
 
 function fillRecords(startDay, endDay, month, year, veranstNr, regel){
 	for(var n=startDay; n<=endDay; n=n+regel){
 		veranstKalender.insert({day:n, month:month, year: year, veranstaltung:veranstNr});			
-	}
-		
+	}		
 }
-
-$('#dp1').change(function(){
-	var temp = $(this).val();
-	if(temp !== "" && temp !== textFeldDatum){
-		textFeldDatum = $(this).val();	
-	}
-});
-
-//wenn "Suche" gedrueckt wird bzw Enter im Suchfeld
-$( "#dp1" ).keyup(function( e ) {
- 	if (  e.which === 13 ) {
- 		e.preventDefault();
-		var year = parseInt(textFeldDatum.substr(textFeldDatum.length - 4));
-		var month = parseInt(textFeldDatum.substr(3, 5));
-		console.log(textFeldDatum.substr(textFeldDatum.length - 4)+ " "+month);
-		Kalender(month, year);
-		makeEmBold();
-		$(".veranstaltung").hide();
-	}
-});
-$( "#search-calendar" ).click(function() {
-	$( "#dp1" ).keypress();
-});
 
 //Jahr und Monat aus dem Kalender auslesen
 function getYear(){
