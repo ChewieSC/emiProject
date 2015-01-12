@@ -1,20 +1,29 @@
 TODO:
+> Styleguide letzte Anpassungen, Teamseite Navigation!!, glyphicon-remove bei allen anderen Seiten
+> Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren (auch wenn auf einer anderen Seite!!)
+	> der Kalender aktualisiert dann die Veranstaltungen
+----
 Maedels machen das!
-> (Petra) Video bei Silvester hinzufügen und Audio bei Nussknacker
+> (Petra) Video bei Silvester hinzufügen und Audio bei Nussknacker - erledigt
 > (Petra und Isabell) Styleguide auf Webseite (nicht in Word) machen
+	Petra
+	> Listen (Überschrifte)
+	> Links
+	> Schriftart
+	Isabell
+	> Tabelle
+	> Bilder
+	> Tooltip
 > (Isabell) Team- und MockUp-Seite
 > (erledigt) Bilder alle eine Groesse (CSS)
 ---
 Jungs zeigt auch mal euer Koennen!
 > (erledigt) auf Startseite: heutiges Datum sofort ausgewaehlt
 > (erledigt) selektierten Tag hervorheben!
-> Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren (auch wenn auf einer anderen Seite!!)
-	> der Kalender aktualisiert dann die Veranstaltungen
-> Datums-Eingabe checken (JS) -> Bootstrap-H�kchen nutzen
+> (erledigt) Datums-Eingabe checken (JS) -> Bootstrap-H�kchen nutzen
 
 Optional:
 > bei initiateEventsDisplay() und makeEmBold() -> DB benutzen statt "case: ..."
-> bei MouseOver: ?Fade In oder Roll-In 
 > (praktisch erledigt) Quell-Code Dokumentation
 > bei mehr als einer Veranstaltung/Kategorie "row"-class aus Bootstrap benutzen (am Besten per JS)
 

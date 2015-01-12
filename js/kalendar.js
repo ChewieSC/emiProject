@@ -43,12 +43,37 @@ if (dj < 999)
   dj += 1900;
 Kalender(dm, dj);
 var kalender;
+var textFeldDatum;
 
 function fillRecords(startDay, endDay, month, year, veranstNr, regel){
 	for(var n=startDay; n<=endDay; n=n+regel){
 		veranstKalender.insert({day:n, month:month, year: year, veranstaltung:veranstNr});			
-	}		
+	}
+		
 }
+
+$('#dp1').change(function(){
+	var temp = $(this).val();
+	if(temp !== "" && temp !== textFeldDatum){
+		textFeldDatum = $(this).val();	
+	}
+});
+
+//wenn "Suche" gedrueckt wird bzw Enter im Suchfeld
+$( "#dp1" ).keyup(function( e ) {
+ 	if (  e.which === 13 ) {
+ 		e.preventDefault();
+		var year = parseInt(textFeldDatum.substr(textFeldDatum.length - 4));
+		var month = parseInt(textFeldDatum.substr(3, 5));
+		console.log(textFeldDatum.substr(textFeldDatum.length - 4)+ " "+month);
+		Kalender(month, year);
+		makeEmBold();
+		$(".veranstaltung").hide();
+	}
+});
+$( "#search-calendar" ).click(function() {
+	$( "#dp1" ).keypress();
+});
 
 //Jahr und Monat aus dem Kalender auslesen
 function getYear(){
@@ -366,4 +391,61 @@ function displayEvents(day, month, year){
 		//check ob keine Veranstaltungen angzeigt werden -> dann: Info
 		if(keineVeranstaltung === true)
 			$("#keine_veranst").show();
+}
+
+// VALIDIERUNG DATUM
+function gueltigesDatum (datumTest){
+
+	//Fehlerbehandlung
+	 if (!datumTest) {	
+		showRemove();
+		return false;
+	 }
+	 datumTest=datumTest.toString();
+	 datumTest=datumTest.split(".");	//Datum zu Array
+	 
+	 if (datumTest.length!=3){
+		showRemove();
+		return false;
+	 } 
+	 datumTest[0]=parseInt(datumTest[0],10);	//Entfernung der Nullen
+	 datumTest[1]=parseInt(datumTest[1],10);
+	 var kontrolldatum=new Date(datumTest[2],datumTest[1]-1,datumTest[0]);
+
+	 
+	 //Behandlung Jahr: wenn eins, zwei- oder dreistellig
+	 if (datumTest[2].length>=1 && datumTest[2].length<=3 ){
+		showRemove();
+		return false;
+	 } 
+	 
+	 //Behandlung von Jahresangaben mit zwei Zahlen >< aber z.Z. nicht vereinbar mit datapicker.js
+	 /*
+	 else if (datumTest[2].length==2) 
+		datumTest[2]="20"+datumTest[2];
+	 else if (datumTest[2].length==3) {
+		showRemove();
+		return false;
+	 } */
+	 //TEST: 
+	 //console.log(kontrolldatum + " " + datumTest);
+	 
+	 //Vergleich JS-Datum mit eingegebenen Datum / letzter Validierungsschritt
+	 if (kontrolldatum.getDate()==datumTest[0] && (kontrolldatum.getMonth() + 1)==datumTest[1] && kontrolldatum.getFullYear()==datumTest[2]){
+		showOk();
+	}
+	 else{
+		showRemove();
+		return false;
+	 }
+	
+}
+
+function showRemove(){
+	$(".glyphicon-ok").hide();
+	$(".glyphicon-remove").show();
+}
+function showOk(){
+	$(".glyphicon-remove").hide();
+	$(".glyphicon-ok").show();
 }
