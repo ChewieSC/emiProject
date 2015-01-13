@@ -123,7 +123,8 @@
 				<form class="form-inline" role="form" action="javascript:redirectToDate();" onsubmit="return CheckInput();">
 					  <div class="form-group has-feedback">
 						<!-- <label class="control-label" for="dp1">Suche: </label> -->
-						<input id="dp1" onkeyup="gueltigesDatum(this.value);" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
+						<input id="dp1" onchange="alert(this.value);" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
+						<!-- <input id="dp1" onkeyup="gueltigesDatum(this.value);" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker"> -->
 						<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="false"></span>
 						<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="false"></span>
 						<span id="inputSuccess4Status" class="sr-only">(success)</span>

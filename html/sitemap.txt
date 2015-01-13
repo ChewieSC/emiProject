@@ -1,11 +1,16 @@
-TODO:
+﻿TODO:
 > Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren (auch wenn auf einer anderen Seite!!)
 	> der Kalender aktualisiert dann die Veranstaltungen
 	> !! (nicht geschafft) auch bei Enter des text-input-Feldes
 > (erledigt) Teamseite Navigation!!, 
 	(erledigt) glyphicon-remove bei allen anderen Seiten
+Was wir gelernt haben:
+- von Anfang an Projektleiter haben
+- Zwischenziele setzen + Aufgaben konkret verteilen -> wer nix macht, fliegt aus der Gruppe (ein einmaliger Patzer ist entschuldigbar aber danach tschüss)
+- statt Dropbox -> git von Anfang an nutzen
+- eine gemeinsame Projektdatei, in der jeder seine Aufgabe + Abgabedatum sieht
+- eine gemeinsame Kommunikationsform haben (die alle nutzen)
 ----
-Maedels machen das!
 > (Petra) Video bei Silvester hinzufügen und Audio bei Nussknacker - erledigt
 > (Petra und Isabell) Styleguide auf Webseite (nicht in Word) machen
 	Petra
