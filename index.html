@@ -68,9 +68,9 @@
 					</li>
 					<li><a href="#">Dinner</a></li>
 					<li><a href="#">Gala</a></li>
-				 	<li><a href="html/kultur/kino.html">Kino</a></li>
+				 	<li><a href="#">Kino</a></li>
 					<li><a href="#">Kabarett</a></li>
-					<li><a href="html/kultur/konzert.html">Konzert</a></li>
+					<li><a href="#">Konzert</a></li>
 					<li><a href="#">Musical</a></li>
 					<li><a href="#">Oper</a></li>
 					<li class="dropdown-submenu"><a tabindex="-1" href="#">Theater</a>
@@ -86,10 +86,10 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sport & Freizeit <span class="caret"></span></a>
 				<ul class="dropdown-menu multi-level" role="menu">
 					<li><a href="#">Festival</a></li>
-					<li><a href="html/freizeit/marathon.html">Marathon</a></li>
+					<li><a href="#">Marathon</a></li>
 					<li><a href="html/freizeit/party.html">Party</a></li>
 					<li><a href="#">Spektakel</a></li>
-					<li><a href="html/freizeit/spiel.html">Spiel</a></li>
+					<li><a href="#">Spiel</a></li>
 					<li><a href="#">Tanztee</a></li>
 					<li><a href="#">Wettkämpfe</a></li>
 					<li><a href="#">Zirkus</a></li>
@@ -118,11 +118,10 @@
 					<li><a href="html/info/team.html">Team</a></li>
 					<li><a href="html/info/styleguide.html">Styleguide</a></li>
 					<li><a href="html/info/mockup.html">Mockup CardSorting</a></li>
-					<li><a href="html/info/team.html">Team</a></li>
 				</ul>
 			</li>
 			<li class="dropdown calendar">
-				<form class="form-inline" role="form">
+				<form class="form-inline" role="form" action="javascript:redirectToDateIndex();" onsubmit="return CheckInput();">
 					  <div class="form-group has-feedback">
 						<!-- <label class="control-label" for="dp1">Suche: </label> -->
 						<input id="dp1" onkeyup="gueltigesDatum(this.value);" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
@@ -131,7 +130,7 @@
 						<span id="inputSuccess4Status" class="sr-only">(success)</span>
 					  </div>
 						<!-- <input data-provide="datepicker" class="datepicker" type="text" value="12-12-2014" id="dp1" /> -->
-					<div class="btn btn-default" type="submit">Suche <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					<button class="btn btn-default" type="submit">Suche <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 				</form>
 			</li>
           </ul>

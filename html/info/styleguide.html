@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link href="../../css/datepicker.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="../../css/custom.css" rel="stylesheet">
@@ -20,6 +21,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../css/ie-emulation-modes-warning.js"></script>
+    <script src="../../js/taffy-min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -50,13 +52,13 @@
 					<li><a href="#">Lesung</a></li>
 					<li><a href="#">Museum</a></li>
 					<li><a href="../bildung/vortrag.html">Vortrag</a></li>
-					<li><a href="#">Workshop</a></li>
+					<li><a href="../bildung/workshop.html">Workshop</a></li>
 				</ul>
 			</li>
             <li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kultur <span class="caret"></span></a>
 				<ul class="dropdown-menu multi-level" role="menu">
-					<li><a href="ballett.html">Ballett</a></li>
+					<li><a href="../kultur/ballett.html">Ballett</a></li>
 					<li class="dropdown-submenu"><a tabindex="-1" href="#">Comedy</a>
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#">Sketch-Show</a></li>
@@ -112,17 +114,18 @@
 			<li class="dropdown active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Infos <span class="caret"></span></a>
 				<ul class="dropdown-menu multi-level" role="menu">
-					<li><a href="../info/team.html">Team</a></li>
-					<li><a href="../info/styleguide.html">Styleguide</a></li>
-					<li><a href="../info/mockup.html">Mockup CardSorting</a></li>
+					<li><a href="team.html">Team</a></li>
+					<li><a href="styleguide.html">Styleguide</a></li>
+					<li><a href="mockup.html">Mockup CardSorting</a></li>
 				</ul>
 			</li>
 			<li class="dropdown calendar">
-				<form class="form-inline" role="form">
+				<form class="form-inline" role="form" action="javascript:redirectToDate();" onsubmit="return CheckInput();">
 					  <div class="form-group has-feedback">
 						<!-- <label class="control-label" for="dp1">Suche: </label> -->
-						<input id="dp1" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
-						<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+						<input id="dp1" onkeyup="gueltigesDatum(this.value);" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
+						<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="false"></span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="false"></span>
 						<span id="inputSuccess4Status" class="sr-only">(success)</span>
 					  </div>
 						<!-- <input data-provide="datepicker" class="datepicker" type="text" value="12-12-2014" id="dp1" /> -->
@@ -133,15 +136,14 @@
         </div><!--/.nav-collapse -->
       </div><!--/.container -->
     </nav>
-
+    
     <div class="container">
 
       <div class="styleguide-template">
 		<h2>Styleguide</h2>
 
 		<div class="bs-docs-section"> </div>
-		<div class="container">
-		<h4>1. Listen</h4>
+		<h4>1. Überschriften</h4>
 		<p> Alle HTML Überschriften werden mit Hilfe von h1 bis h6 formatiert.</p>
 			<div class="basic">
 					<h1>h1 Überschrift </h1>
@@ -169,7 +171,7 @@
 		</div>
 		
 
-		<h4>3. Die Farben</h4>
+		<h4>3. Farben</h4>
 		<p> Folgende Farben wurden in unserer .css-Datei genutzt. </p>
 			<div class="basic">
 				<div class="row">
@@ -179,6 +181,14 @@
 				<div class="row">
 					<div class="col-md-3">Navigation-Schrift:</div>
 					<div class="col-md-3" style="color: #5E5E5E;">#5E5E5E</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">Navigation .active:</div>
+					<div class="col-md-3" style="color: rgba(3, 73, 153, 0.85);">rgba(3, 73, 153, 0.85)</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">Navigation .active:focus, hover</div>
+					<div class="col-md-3" style="color: rgba(3, 73, 153, 0.7);">rgba(3, 73, 153, 0.7)</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">Navigation-Schrift (Auswahl):</div>
@@ -220,32 +230,49 @@
 			<!-- Häkchen, Suchzeichen, -->
 				<div class="row">
 					<div class="col-md-3">Häkchen:</div>
-					<div class="col-md-3"><span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span></div>
+					<div class="col-md-1"><span style="left: 0px; line-height: 1.42857;" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span></div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">Suchzeichen:</div>
-					<div class="col-md-3"><span class="glyphicon glyphicon-search form-control-feedback" style="float:left;" aria-hidden="true"></span></div>
+					<div class="col-md-1"><span style="left: 0px; line-height: 1.42857;" class="glyphicon glyphicon-search form-control-feedback" style="float:left;" aria-hidden="true"></span></div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">Falsche Eingabe:</div>
-					<div class="col-md-3"><span class="glyphicon glyphicon-remove form-control-feedback" style="float:left;" aria-hidden="true"></span></div>
+					<div class="col-md-1"><span style="left: 0px; line-height: 1.42857;" class="glyphicon glyphicon-remove form-control-feedback" style="float:left;" aria-hidden="true"></span></div>
 				</div>
+				<div class="row">
+					<div class="col-md-3">Dropdown-Caret:</div>
+					<div class="col-md-1"><span style="margin-left: -2px;" class="caret"></span></div>
+				</div>
+				
 			</div>
 		
 		<h4>5. Bilder</h4>
-		<p>Die Bilder wurden mit dem Smartphone selbst gemacht. Darüber hinaus verwendeten wir Bilder aus lizenzfreien Datenbanken.</p>
+		<p>Die meisten Bilder wurden mit dem Smartphone selbst gemacht. Bei Seiten, wo dies nicht möglich war,
+			 bitten wir die Rechteinhaber um Verständnis und werden sämtlich Bilder auf Wunsch entfernen.</p>
 		<div class="basic">
 			<!-- Informationen zu Bildern -->
-				<div class="row">
-					<div class="col-md-8">Bildquelle bei nicht eigens geschossenen Bildern: <a href="http://www.pixabay.com">Pixabay</a></div>
-				</div>
 			<div class="row">
-					<div class="col-md-8">Nach Klicken des Thumbnails öffnen sich die Informationen zur Veranstaltung. </div>
-				</div>
-			<div class="row">
-					<div class="col-md-12">Die Bilder sind responsive eingebunden. Das heißt, dass für jeden Browser und für jedes Medium (Notebook, PC, Tablet und Smartphone) das Format angepasst wird. </div>
-				</div>			
+					<div class="col-md-5">.img-thumbnail-big .img-thumbnail</div>
+					<div class="col-md-3">auf Startseite mit fester Höhe von 340px</div>
 			</div>
+			<div class="row">
+					<div class="col-md-5">.img-thumbnail-big .img-thumbnail :hover</div>
+					<div class="col-md-3">Rahmen 1px solid #0066CC erscheint</div>
+			</div>
+			<div class="row">
+					<div class="col-md-5">.center-image</div>
+					<div class="col-md-7">auf Veranstaltungsseiten mit <code>display:inline; height: 500px;</code></div>
+			</div>
+			<div class="row">
+					<div class="col-md-5">.img-reduce-height</div>
+					<div class="col-md-7">auf Mockup-Seite mit <code>display:inline; height: 400px; margin-bottom: 20px;</code></div>
+			</div>
+			<div class="row">
+					<div class="col-md-5">Alle anderen Bilder können responsive eingebunden werden<br /> per <code>&lt;img class="img-responsive" /&gt;</code>.</div>
+					<div class="col-md-7">Das heißt, dass für jeden Browser und für jedes Medium (Notebook, PC, Tablet und Smartphone) das Format angepasst wird.</div>
+			</div>			
+		</div>
 	<h4>6. Tabelle</h4>
 		<p>Der Kalender ist in Form einer Tabelle dargestellt:</p>
 		<div class="basic">
@@ -274,12 +301,38 @@
 					<div class="col-md-3">Zellenhintergrund: </div>
 					<div class="col-md-3">transparent</div>
 				</div>
-					<div class="row">
+				<div class="row">
 					<div class="col-md-3">Zellenrahmen: </div>
 					<div class="col-md-3" style="color: #f9f9f9;">F9F9F9</div>
-					<div class="col-md-3"> (Rahmen oben und unten) </div>
 				</div>
 			</div>
+		<p>Information zur Team-Tabelle: verwendete CSS Klasse: ".table".</p>
+		<div class="basic">
+			<div class="row">
+				<div class="col-md-3">width:</div>
+				<div class="col-md-3">100%;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">margin-bottom:</div>
+				<div class="col-md-3">20px;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">background-color:</div>
+				<div class="col-md-3">transparent;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">border-spacing:</div>
+				<div class="col-md-3">0px;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">border-collapse:</div>
+				<div class="col-md-3">collapse;</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">border:</div>
+				<div class="col-md-3">1px solid black;</div>
+			</div>
+		</div>
 	<h4>7. Tooltip</h4>
 		<p>Ein Tooltip ist ein kleines Hinweisfenster innerhalb einer Webseite. Für das Tooltip gelten folgende Bestimmungen:</p>
 		<div class="basic">
@@ -308,33 +361,22 @@
 					<div class="col-md-3">Opacity:</div>
 					<div class="col-md-3">0.86</div>
 				</div>
+				<div class="row">
+					<div class="col-md-3">Anzeige:</div>
+					<div class="col-md-3">unten, mittig, per Fade-In</div>
+				</div>
 		</div>
-		</div>
-		
-				
-		<!-- 
-			active Kategorie: #555
-			Kategorie bei Kalendereintrag: #F35735
-			Link: #337AB7
-			Link mit Focus: #23527C
-		-->
 
 		<!-- 
 			 Listen
-			 Tabelle 
-			 Schriftart
 			 ---
-			 .img-thumbnail-small
-			 .img-thumbnail-big
-			 a .img-thumbnail:hover
 			 tbody .styleZelle:hover
 			 .starter-template .oneImage
 			 .kategorie-tag
 			 .styleguide-template
 			 .starter-template
 			 -->
-		
-
+		</div>
     </div><!-- /.container -->
 
 
@@ -346,5 +388,8 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../js/ie10-viewport-bug-workaround.js"></script>
   
+  	<script src="../../js/bootstrap-datepicker.js"></script>
+	<script src="../../js/kalendar.js"></script>
+	<script src="../../js/custom.js"></script>	
 
 </body></html>

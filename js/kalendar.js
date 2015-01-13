@@ -14,6 +14,20 @@ var veranstKalender = TAFFY([	{day:5, month:12, year: 2014, veranstaltung:4},
 								{day:7, month:12, year: 2014, veranstaltung:5},
 								{day:21, month:12, year: 2014, veranstaltung:5}
 							]);
+//helper function to decode URL strings
+function urlParam (name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+};
+// example.com?param1=name&amp;param2=&amp;id=6
+// $.urlParam('param1'); // name
+// $.urlParam('id');        // 6
+// $.urlParam('param2');   // null
 //DB-Befuellung
 //	fillRecords(startDay, endDay, month, year, veranstNr, regel)
 //September 2014
@@ -34,13 +48,19 @@ var veranstKalender = TAFFY([	{day:5, month:12, year: 2014, veranstaltung:4},
 //emptyCheck: veranstKalender({day:14,month:1,year:2015}).get().length === 0
 //siehe auch: taffydb.com/writingqueries
 
-
 //Kalender
 var d = new Date();
 var dm = d.getMonth() + 1;
 var dj = d.getYear();
 if (dj < 999)
   dj += 1900;
+ //read out URL-String
+var urlStringDate = urlParam('date');
+if(urlStringDate !== null){
+	urlStringDate=urlStringDate.split(".");
+  	dm = parseInt(urlStringDate[1]);
+  	dj = parseInt(urlStringDate[2]); 
+}
 Kalender(dm, dj);
 var kalender;
 var textFeldDatum;
@@ -51,29 +71,6 @@ function fillRecords(startDay, endDay, month, year, veranstNr, regel){
 	}
 		
 }
-
-$('#dp1').change(function(){
-	var temp = $(this).val();
-	if(temp !== "" && temp !== textFeldDatum){
-		textFeldDatum = $(this).val();	
-	}
-});
-
-//wenn "Suche" gedrueckt wird bzw Enter im Suchfeld
-$( "#dp1" ).keyup(function( e ) {
- 	if (  e.which === 13 ) {
- 		e.preventDefault();
-		var year = parseInt(textFeldDatum.substr(textFeldDatum.length - 4));
-		var month = parseInt(textFeldDatum.substr(3, 5));
-		console.log(textFeldDatum.substr(textFeldDatum.length - 4)+ " "+month);
-		Kalender(month, year);
-		makeEmBold();
-		$(".veranstaltung").hide();
-	}
-});
-$( "#search-calendar" ).click(function() {
-	$( "#dp1" ).keypress();
-});
 
 //Jahr und Monat aus dem Kalender auslesen
 function getYear(){
@@ -165,12 +162,25 @@ function Kalender (Monat, Jahr) {
   
   //FUNCTIONS
   	makeEmBold();
+  	updateSelectedDay();
 	initiateEventsDisplay();
 	initiatePrevNextFunction();
 	
 	//initial state bei Seitenaufruf
 	$(".veranstaltung").hide();
-	displayEvents(DieserTag, DieserMonat, DiesesJahr);
+	
+	//falls Datum in URL-> selectedDay ändern
+	urlStringDate = urlParam('date');
+	if(urlStringDate !== null){
+		urlStringDate=urlStringDate.split(".");
+	  	var dayTemp = parseInt(urlStringDate[0]);
+	  	var monthTemp = parseInt(urlStringDate[1]);
+	  	var yearTemp = parseInt(urlStringDate[2]);
+	  	displayEvents(dayTemp, monthTemp, yearTemp);
+	}
+	else
+		displayEvents(DieserTag, DieserMonat, DiesesJahr);
+	
 }
 
 function SchreibeKopf (Monatstitel, Monat) {
@@ -194,6 +204,7 @@ function SchreibeZelle (Inhalt, Monat, Jahr) {
   	
   	var anzahlVeranstaltungen = veranstKalender({day:Inhalt,month:Monat,year:Jahr}).get().length;
   	// var anzahlVeranstaltungen = 1;
+  	//Tooltip Handler
   	var tooltip;
   	if(anzahlVeranstaltungen === 0)
   		tooltip = '<span>Es finden keine Veranstaltungen statt.<\/span>';
@@ -203,6 +214,7 @@ function SchreibeZelle (Inhalt, Monat, Jahr) {
   	else 
   		tooltip = '<span>Es finden ' + anzahlVeranstaltungen +' Veranstaltungen statt.<\/span>';
   	
+  	//selected Day?
   	if( !isNaN(Inhalt) ){	// == if Inhalt is a Number
   		kalender += ('<td class="styleZelle tooltips" id="tag_'+ Inhalt +'">' + tooltip);
   	}
@@ -222,15 +234,21 @@ function initiateEventsDisplay(){
 		
 		//initial state onClick
 		$(".veranstaltung").hide();
+		//clean up URL if necessary
+		window.history.pushState(null, null, 'index.html');
 		
 		//strip out the tooltip
 		var helperString = $( this ).text();
 		var inhaltAt = helperString.indexOf(".");
 		
+		$(".selectedDay").removeClass("selectedDay");
+		$(this).addClass( "selectedDay" );
+		
 		// ausgewaehlter Tag
 		var day =  parseInt( helperString.substring(inhaltAt+1, helperString.length) ); 			
 		var month = getMonth();
 		var year = getYear();
+		
 		
 		displayEvents(day, month, year);
 	});
@@ -320,7 +338,7 @@ function makeEmBold(){
 function displayEvents(day, month, year){
 		var keineVeranstaltung = true;
 					
-		console.log(day+" "+month+" "+year);	//Beispiel: "31 12 2014"
+		//console.log(day+" "+month+" "+year);	//Beispiel: "31 12 2014"
 		
 		//check if day is empty string! 
 		if(year==2014 && !isNaN(day) ){
@@ -391,6 +409,17 @@ function displayEvents(day, month, year){
 		//check ob keine Veranstaltungen angzeigt werden -> dann: Info
 		if(keineVeranstaltung === true)
 			$("#keine_veranst").show();
+			
+}
+
+function updateSelectedDay(){
+	urlStringDate = urlParam('date');
+	if(urlStringDate !== null){
+		urlStringDate=urlStringDate.split(".");
+	  	var dayTemp = parseInt(urlStringDate[0]);
+	  	$(".selectedDay").removeClass("selectedDay");
+		$("#tag_"+dayTemp).addClass( "selectedDay" );
+	}
 }
 
 // VALIDIERUNG DATUM
@@ -433,13 +462,32 @@ function gueltigesDatum (datumTest){
 	 //Vergleich JS-Datum mit eingegebenen Datum / letzter Validierungsschritt
 	 if (kontrolldatum.getDate()==datumTest[0] && (kontrolldatum.getMonth() + 1)==datumTest[1] && kontrolldatum.getFullYear()==datumTest[2]){
 		showOk();
+		return true;
 	}
 	 else{
 		showRemove();
 		return false;
 	 }
 	
+	 
 }
+
+// $( "#dp1" ).keydown(function(event) {
+	// if(event.which == 13){
+		// // console.log( $("#dp1").val() );
+		// var a = $("#dp1").val();
+		// console.log(CheckInput(a));
+		// if(gueltigesDatum(a) === true){
+			// var currentURL = window.location.pathname.split('/');
+	    	// if(currentURL[currentURL.length-1] === "index.html")
+	    		// redirectToDate(a);
+	    	// else{
+	    		// redirectToDateIndex(a);
+	    	// }
+// 	    		
+		// }		
+	// }
+// });
 
 function showRemove(){
 	$(".glyphicon-ok").hide();
@@ -449,3 +497,50 @@ function showOk(){
 	$(".glyphicon-remove").hide();
 	$(".glyphicon-ok").show();
 }
+function CheckInput(){
+	var currentInput = $("#dp1").val();
+	// localStorage["datum"] = currentInput;
+	return gueltigesDatum(currentInput);
+}
+function redirectToDate(){
+	window.location.href = "../../index.html?date=" + $("#dp1").val();
+}
+// function redirectToDate(g){
+	// window.location.href = "../../index.html?date=" + g;
+// }
+function redirectToDateIndex(){
+	location.href = "index.html?date=" + $("#dp1").val();
+}
+// function redirectToDateIndex(g){
+	// location.href = "index.html?date=" + g;
+// }
+// function manipulateURLViaAjax(response, urlPath){
+     // document.getElementById("content").innerHTML = response.html;
+     // document.title = response.pageTitle;
+     // window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
+ // }
+
+// Archive
+// 
+// $('#dp1').change(function(){
+	// var temp = $(this).val();
+	// if(temp !== "" && temp !== textFeldDatum){
+		// textFeldDatum = $(this).val();	
+	// }
+// });
+// 
+// //wenn "Suche" gedrueckt wird bzw Enter im Suchfeld
+// $( "#dp1" ).keyup(function( e ) {
+ 	// if (  e.which === 13 ) {
+ 		// e.preventDefault();
+		// var year = parseInt(textFeldDatum.substr(textFeldDatum.length - 4));
+		// var month = parseInt(textFeldDatum.substr(3, 5));
+		// console.log(textFeldDatum.substr(textFeldDatum.length - 4)+ " "+month);
+		// Kalender(month, year);
+		// makeEmBold();
+		// $(".veranstaltung").hide();
+	// }
+// });
+// $( "#search-calendar" ).click(function() {
+	// $( "#dp1" ).keypress();
+// });

@@ -1,7 +1,9 @@
 TODO:
-> Styleguide letzte Anpassungen, Teamseite Navigation!!, glyphicon-remove bei allen anderen Seiten
 > Kalenderauswahl sowie Suchbutton sollen den Kalender auf der index-Seite aufrufen & aktualisieren (auch wenn auf einer anderen Seite!!)
 	> der Kalender aktualisiert dann die Veranstaltungen
+	> !! (nicht geschafft) auch bei Enter des text-input-Feldes
+> (erledigt) Teamseite Navigation!!, 
+	(erledigt) glyphicon-remove bei allen anderen Seiten
 ----
 Maedels machen das!
 > (Petra) Video bei Silvester hinzufügen und Audio bei Nussknacker - erledigt
@@ -23,6 +25,7 @@ Jungs zeigt auch mal euer Koennen!
 > (erledigt) Datums-Eingabe checken (JS) -> Bootstrap-H�kchen nutzen
 
 Optional:
+> Generelles beim Styleguide
 > bei initiateEventsDisplay() und makeEmBold() -> DB benutzen statt "case: ..."
 > (praktisch erledigt) Quell-Code Dokumentation
 > bei mehr als einer Veranstaltung/Kategorie "row"-class aus Bootstrap benutzen (am Besten per JS)

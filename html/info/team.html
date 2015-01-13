@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link href="../../css/datepicker.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="../../css/custom.css" rel="stylesheet">
@@ -50,13 +51,13 @@
 					<li><a href="#">Lesung</a></li>
 					<li><a href="#">Museum</a></li>
 					<li><a href="../bildung/vortrag.html">Vortrag</a></li>
-					<li><a href="#">Workshop</a></li>
+					<li><a href="../bildung/workshop.html">Workshop</a></li>
 				</ul>
 			</li>
             <li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kultur <span class="caret"></span></a>
 				<ul class="dropdown-menu multi-level" role="menu">
-					<li><a href="ballett.html">Ballett</a></li>
+					<li><a href="../kultur/ballett.html">Ballett</a></li>
 					<li class="dropdown-submenu"><a tabindex="-1" href="#">Comedy</a>
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#">Sketch-Show</a></li>
@@ -112,17 +113,17 @@
 			<li class="dropdown active">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Infos <span class="caret"></span></a>
 				<ul class="dropdown-menu multi-level" role="menu">
-					<li><a href="../info/team.html">Team</a></li>
-					<li><a href="../info/styleguide.html">Styleguide</a></li>
-					<li><a href="../info/mockup.html">Mockup CardSorting</a></li>
+					<li><a href="team.html">Team</a></li>
+					<li><a href="styleguide.html">Styleguide</a></li>
+					<li><a href="mockup.html">Mockup CardSorting</a></li>
 				</ul>
 			</li>
 			<li class="dropdown calendar">
-				<form class="form-inline" role="form">
+				<form class="form-inline" role="form" action="javascript:redirectToDate();" onsubmit="return CheckInput();">
 					  <div class="form-group has-feedback">
-						<!-- <label class="control-label" for="dp1">Suche: </label> -->
-						<input id="dp1" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
-						<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+						<input id="dp1" onkeyup="gueltigesDatum(this.value);" type="text" class="form-control datepicker" aria-describedby="inputSuccess4Status" data-provide="datepicker">
+						<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="false"></span>
+						<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="false"></span>
 						<span id="inputSuccess4Status" class="sr-only">(success)</span>
 					  </div>
 						<!-- <input data-provide="datepicker" class="datepicker" type="text" value="12-12-2014" id="dp1" /> -->
@@ -180,5 +181,8 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../js/ie10-viewport-bug-workaround.js"></script>
   
+  	<script src="../../js/bootstrap-datepicker.js"></script>
+	<script src="../../js/kalendar.js"></script>
+	<script src="../../js/custom.js"></script>	
 
 </body></html>
